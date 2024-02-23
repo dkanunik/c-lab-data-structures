@@ -5,14 +5,18 @@
 #ifndef STACK_H
 #define STACK_H
 
-#define STACK_SIZE 50
+#define INITIAL_CAPACITY 10
+#define GROWTH_FACTOR 2
 
-struct Stack {
-  int top;
-  int storage[STACK_SIZE];
-};
+typedef struct {
+  int* storage;
+  size_t size;
+  size_t capacity;
+} Stack;
 
-struct Stack* stack_create();
-bool stack_is_empty(struct Stack* stack);
-size_t stack_size(struct Stack* stack);
+Stack* stack_create();
+bool stack_is_empty(Stack* stack);
+size_t stack_size(Stack* stack);
+void stack_push(Stack* stack, int value);
+void stack_free(Stack* stack);
 #endif
