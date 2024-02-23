@@ -22,6 +22,10 @@ Stack* stack_create() {
   stack->size = 0;
   stack->capacity = INITIAL_CAPACITY;
 
+  for (size_t i = stack->size; i < stack->capacity; ++i) {
+    stack->storage[i] = '\0';
+  }
+
   return stack;
 }
 
@@ -41,6 +45,11 @@ void stack_push(Stack* stack, int value) {
       fprintf(stderr, "Memory allocation failed\n");
       exit(EXIT_FAILURE);
     }
+
+    for (size_t i = stack->size; i < new_capacity; ++i) {
+      increased_storage[i] = '\0';
+    }
+
     stack->storage = increased_storage;
     stack->capacity = new_capacity;
   }
@@ -51,6 +60,22 @@ void stack_push(Stack* stack, int value) {
 
   stack->storage[0] = value;
   stack->size++;
+}
+
+int stack_pop(Stack* stack) {
+  if (stack->size > 0) {
+    int pop_item = stack->storage[0];
+
+    for (size_t i = 0; i < stack->size; i++) {
+      stack->storage[i] = stack->storage[i + 1];
+    }
+
+    stack->size--;
+
+    return pop_item;
+  } else {
+    return '\0';
+  }
 }
 
 void stack_free(Stack* stack) {
