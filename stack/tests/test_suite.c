@@ -73,12 +73,30 @@ void test_stack_pop(void) {
   stack_free(stack);
 }
 
+void test_stack_peek(void) {
+  Stack *stack = stack_create();
+
+  for (int i = 0; i <= 10; i++) {
+    stack_push(stack, i);
+    printf("\n%d", i);
+  }
+
+  TEST_ASSERT_EQUAL_INT(10, stack_peek(stack));
+  TEST_ASSERT_EQUAL_size_t(11, stack_size(stack));
+  stack_push(stack, 100);
+  TEST_ASSERT_EQUAL_INT(100, stack_peek(stack));
+  TEST_ASSERT_EQUAL_size_t(12, stack_size(stack));
+
+  stack_free(stack);
+}
+
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(test_stack_create);
   RUN_TEST(test_stack_is_empty);
   RUN_TEST(test_stack_size);
   RUN_TEST(test_stack_push);
+  RUN_TEST(test_stack_peek);
   RUN_TEST(test_stack_pop);
   return UNITY_END();
 }

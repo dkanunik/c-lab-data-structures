@@ -78,6 +78,14 @@ int stack_pop(Stack* stack) {
   }
 }
 
+int stack_peek(Stack* stack) {
+  if (stack->size > 0) {
+    return stack->storage[0];
+  } else {
+    return '\0';
+  }
+}
+
 void stack_free(Stack* stack) {
   free(stack->storage);
   free(stack);

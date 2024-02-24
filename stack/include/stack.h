@@ -20,4 +20,5 @@ size_t stack_size(Stack* stack);
 void stack_push(Stack* stack, int value);
 void stack_free(Stack* stack);
 int stack_pop(Stack* stack);
+int stack_peek(Stack* stack);
 #endif
