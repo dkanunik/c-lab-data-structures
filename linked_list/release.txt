@@ -1,0 +1,7 @@
+linked list:
+---------------
+- create
+- prepend
+- head
+- tail
+- index_of
