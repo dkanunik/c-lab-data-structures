@@ -182,7 +182,7 @@ void test_linked_list_index_for_2_append(void) {
 
 /**
  * init
- * append, append
+ * prepend, prepend
  * check the first coincidence
  */
 void test_linked_list_index_for_2_prepend(void) {
@@ -201,6 +201,60 @@ void test_linked_list_index_for_2_prepend(void) {
   linked_list_free(list);
 }
 
+/**
+ * init
+ * prepend, prepend
+ * check index of element with the value
+ */
+void test_linked_list_value_at_2_prepend(void) {
+  LinkedList *list = linked_list_create();
+
+  char text1[] = "qwerty1";
+  linked_list_prepend(list, text1);
+
+  char text2[] = "qwerty2";
+  linked_list_prepend(list, text2);
+
+  char *value1 = linked_list_value_at(list, 1);
+
+  TEST_ASSERT_EQUAL_STRING(text1, value1);
+  linked_list_free(list);
+}
+
+void test_linked_list_contains(void) {
+  LinkedList *list = linked_list_create();
+
+  char text1[] = "qwerty1";
+  linked_list_append(list, text1);
+
+  char text2[] = "qwerty2";
+  linked_list_append(list, text2);
+
+  char text3[] = "qwerty3";
+  linked_list_append(list, text3);
+
+  TEST_ASSERT_TRUE(linked_list_contains(list, text2));
+  TEST_ASSERT_FALSE(linked_list_contains(list, "test"));
+  linked_list_free(list);
+}
+
+void test_linked_list_to_array(void) {
+  LinkedList *list = linked_list_create();
+
+  linked_list_append(list, "qwerty1");
+  linked_list_append(list, "qwerty2");
+  linked_list_append(list, "qwerty3");
+
+  const char *separator = ", ";
+  const char *expected_result = "qwerty1, qwerty2, qwerty3";
+  char *actual_result = linked_list_to_array(list, separator);
+
+  TEST_ASSERT_EQUAL_STRING(expected_result, actual_result);
+  printf("%s\n", actual_result);
+
+  linked_list_free(list);
+}
+
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(test_linked_list_create);
@@ -212,5 +266,8 @@ int main(void) {
   RUN_TEST(test_linked_list_append_3);
   RUN_TEST(test_linked_list_index_for_2_append);
   RUN_TEST(test_linked_list_index_for_2_prepend);
+  RUN_TEST(test_linked_list_value_at_2_prepend);
+  RUN_TEST(test_linked_list_contains);
+  RUN_TEST(test_linked_list_to_array);
   return UNITY_END();
 }

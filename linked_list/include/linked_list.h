@@ -24,4 +24,7 @@ void linked_list_free(LinkedList* list);
 char* linked_list_head(LinkedList* list);
 char* linked_list_tail(LinkedList* list);
 int linked_list_index_of(LinkedList* list, const char* value);
+char* linked_list_value_at(LinkedList* list, const int index);
+bool linked_list_contains(LinkedList* list, char* value);
+char* linked_list_to_array(LinkedList* list, const char* separator);
 #endif

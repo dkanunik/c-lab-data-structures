@@ -53,8 +53,6 @@ void linked_list_prepend(LinkedList* list, const char* value) {
   }
 
   list->size++;
-
-  // todo: has to return index
 }
 
 void linked_list_append(LinkedList* list, const char* value) {
@@ -85,8 +83,6 @@ void linked_list_append(LinkedList* list, const char* value) {
   }
 
   list->size++;
-
-  // todo: has to return index
 }
 
 char* linked_list_head(LinkedList* list) {
@@ -115,4 +111,73 @@ int linked_list_index_of(LinkedList* list, const char* value) {
   }
 
   return -1;
+}
+
+char* linked_list_value_at(LinkedList* list, const int index) {
+  if (list == NULL || list->size == 0 || index < 0) {
+    return '\0';
+  }
+
+  Node* current = list->first_item;
+
+  int counter = 0;
+
+  while (current != NULL) {
+    if (counter == index) {
+      return current->item;
+    }
+    current = current->next_item;
+    counter++;
+  }
+
+  return '\0';
+}
+
+bool linked_list_contains(LinkedList* list, char* value) {
+  if (list == NULL || list->size == 0 || value == NULL) {
+    return false;
+  }
+
+  Node* current = list->first_item;
+
+  while (current != NULL) {
+    if (strcmp(current->item, value) == 0) {
+      return true;
+    }
+    current = current->next_item;
+  }
+
+  return false;
+}
+
+char* linked_list_to_array(LinkedList* list, const char* separator) {
+  if (list == NULL || list->size == 0) {
+    return NULL;
+  }
+
+  size_t total_size = 0;
+  Node* current = list->first_item;
+  while (current != NULL) {
+    total_size += strlen(current->item) + strlen(separator) + 1;
+    current = current->next_item;
+  }
+
+  char* destination_array = (char*)malloc(total_size);
+  if (destination_array == NULL) {
+    return NULL;
+  }
+
+  char* dest_ptr = destination_array;
+  current = list->first_item;
+  while (current != NULL) {
+    strcpy(dest_ptr, current->item);
+    dest_ptr += strlen(current->item);
+    strcpy(dest_ptr, separator);
+    dest_ptr += strlen(separator);
+    current = current->next_item;
+  }
+
+  *(dest_ptr - strlen(separator)) = '\0';
+
+  return destination_array;
 }
