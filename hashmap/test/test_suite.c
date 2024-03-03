@@ -3,6 +3,14 @@
 #include "hashmap.h"
 #include "unity.h"
 
+void setUp() {
+
+}
+
+void tearDown() {
+
+}
+
 void test_hashmap_create(void) {
     HashMap* map = hashmap_create();
     TEST_ASSERT_EQUAL_INT(0, map->size);
