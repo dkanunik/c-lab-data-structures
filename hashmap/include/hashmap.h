@@ -6,21 +6,29 @@
 #define HASH_MAP_H
 
 #define INITIAL_CAPACITY 50
-#define GROWTH_FACTOR 2
 
 typedef struct KeyValue {
-  const char* key;
-  int value;
-  struct KeyValue* next;
+    const char *key;
+    int value;
+    struct KeyValue *next;
 } KeyValue;
 
 typedef struct {
-  size_t size;
-  KeyValue** nodes;
+    size_t index_count;
+    size_t nodes_count;
+    KeyValue **nodes;
 } HashMap;
 
-size_t hash(const char* key, size_t table_size);
-HashMap* hashmap_create();
+size_t hash(const char *key, size_t table_size);
+
+HashMap *hashmap_create();
+
 bool hashmap_put(HashMap *map, const char *key, int value);
+
+int *hashmap_get(HashMap *map, const char *key);
+
+bool hashmap_remove(HashMap *map, const char *key);
+
 void hashmap_free(HashMap *map);
+
 #endif

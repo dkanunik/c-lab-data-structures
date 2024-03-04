@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.27)
 project(hashmap C)
 
 set(C_STANDARD 11)
-set(c_COMPILER_LAUNCHER "gcc")
+set(C_COMPILER_LAUNCHER "gcc")
 
 include_directories(include)
 
