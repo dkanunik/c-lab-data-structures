@@ -31,4 +31,10 @@ bool hashmap_remove(HashMap *map, const char *key);
 
 void hashmap_free(HashMap *map);
 
+int hashmap_size(HashMap *map);
+
+bool hashmap_is_empty(HashMap *map);
+
+char *hashmap_keys(HashMap *map, char *separator);
+
 #endif

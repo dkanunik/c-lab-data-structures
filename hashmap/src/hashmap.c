@@ -6,6 +6,10 @@
 #include <string.h>
 
 void hashmap_free(HashMap *map) {
+    if (map == NULL) {
+        return;
+    }
+
     for (size_t i = 0; i < map->index_count; i++) {
         KeyValue *current = map->nodes[i];
         while (current != NULL) {
@@ -117,10 +121,10 @@ bool hashmap_remove(HashMap *map, const char *key) {
         return false;
     }
 
-    KeyValue* next_node = NULL;
+    KeyValue *next_node = NULL;
 
     for (int i = 0; i < map->index_count; ++i) {
-        KeyValue* current_node = map->nodes[i];
+        KeyValue *current_node = map->nodes[i];
         while (current_node != NULL) {
             if (current_node->key != NULL && strcmp(current_node->key, key) == 0) {
                 if (next_node == NULL) {
@@ -138,3 +142,62 @@ bool hashmap_remove(HashMap *map, const char *key) {
     }
     return false;
 }
+
+int hashmap_size(HashMap *map) {
+    if (map == NULL) {
+        return -1;
+    }
+
+    return (int) map->nodes_count;
+}
+
+bool hashmap_is_empty(HashMap *map) {
+    if (map == NULL) {
+        return true;
+    }
+
+    return map->nodes_count <= 0;
+}
+
+char *hashmap_keys(HashMap *map, char *separator) {
+    if (map == NULL) {
+        return false;
+    }
+
+    size_t memory_size_for_keys = 0;
+    for (size_t i = 0; i < map->index_count; ++i) {
+        KeyValue *current = map->nodes[i];
+        while (current != NULL) {
+            if (current->key == NULL) {
+                break;
+            }
+            KeyValue *next = current->next;
+            memory_size_for_keys += strlen(map->nodes[i]->key) + strlen(separator);
+            current = next;
+        }
+    }
+
+    char *keys = (char *) malloc(memory_size_for_keys);
+    if (keys == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int counter = 0;
+
+    for (size_t i = 0; i < map->index_count; ++i) {
+        KeyValue *current = map->nodes[i];
+        while (current != NULL) {
+            if (current->key == NULL) {
+                break;
+            }
+            KeyValue *next = current->next;
+            strcat(keys, current->key);
+            strcat(keys, separator);
+            current = next;
+        }
+    }
+
+    return keys;
+}
+
