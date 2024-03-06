@@ -80,6 +80,26 @@ void test_hashmap_is_empty(void) {
     TEST_ASSERT_FALSE(hashmap_is_empty(map));
 }
 
+void test_hashmap_contains_key(void) {
+    prefill_data();
+
+    TEST_ASSERT_TRUE(hashmap_contains_key(map, "test1"));
+    TEST_ASSERT_FALSE(hashmap_contains_key(map, "test10"));
+}
+
+void test_hashmap_clean(void) {
+    prefill_data();
+
+    TEST_ASSERT_EQUAL_INT(7, hashmap_size(map));
+
+    hashmap_clear(map);
+
+    TEST_ASSERT_EQUAL_INT(0, hashmap_size(map));
+
+    TEST_ASSERT_FALSE(hashmap_contains_key(map, "test1"));
+    TEST_ASSERT_FALSE(hashmap_contains_key(map, "test7"));
+}
+
 void test_hashmap_keys(void) {
     prefill_data();
 
@@ -118,5 +138,7 @@ int main(void) {
     RUN_TEST(test_hashmap_keys);
     RUN_TEST(test_hashmap_put);
     RUN_TEST(test_hashmap_remove);
+    RUN_TEST(test_hashmap_contains_key);
+    RUN_TEST(test_hashmap_clean);
     return UNITY_END();
 }

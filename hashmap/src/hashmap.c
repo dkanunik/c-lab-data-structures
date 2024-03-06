@@ -159,7 +159,7 @@ bool hashmap_is_empty(HashMap *map) {
     return map->nodes_count <= 0;
 }
 
-char *hashmap_keys(HashMap *map, char *separator) {
+char *hashmap_keys(HashMap *map, const char *separator) {
     if (map == NULL) {
         return false;
     }
@@ -201,3 +201,39 @@ char *hashmap_keys(HashMap *map, char *separator) {
     return keys;
 }
 
+bool hashmap_contains_key(HashMap *map, const char *key) {
+    if (map == NULL || key == NULL) {
+        return false;
+    }
+
+    for (int i = 0; i < map->index_count; ++i) {
+        KeyValue *current_node = map->nodes[i];
+        while (current_node != NULL) {
+            if (current_node->key != NULL && strcmp(current_node->key, key) == 0) {
+                return true;
+            }
+            current_node = current_node->next;
+        }
+    }
+    return false;
+}
+
+void hashmap_clear(HashMap *map) {
+    if (map == NULL) {
+        return;
+    }
+
+    for (size_t i = 0; i < map->index_count; i++) {
+        KeyValue *current = map->nodes[i];
+        while (current != NULL) {
+            KeyValue *next = current->next;
+            if (next == NULL) {
+                map->nodes[i] = current;
+                break;
+            }
+            free(current);
+            current = next;
+            map->nodes_count--;
+        }
+    }
+}

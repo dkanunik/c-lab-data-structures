@@ -35,6 +35,10 @@ int hashmap_size(HashMap *map);
 
 bool hashmap_is_empty(HashMap *map);
 
-char *hashmap_keys(HashMap *map, char *separator);
+char *hashmap_keys(HashMap *map, const char *separator);
+
+bool hashmap_contains_key(HashMap *map, const char *key);
+
+void hashmap_clear(HashMap *map);
 
 #endif
