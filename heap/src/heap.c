@@ -26,17 +26,17 @@ void heap_free(Heap *heap) {
 }
 
 void heap_percolate_up(Heap* heap, int index) {
-    int parent_index = (index - 1) / 2;
-    int temp;
-    while (index > 0 && heap->array[parent_index] > heap->array[index]) {
-        // Swap the parent and child elements
-        temp = heap->array[parent_index];
-        heap->array[parent_index] = heap->array[index];
-        heap->array[index] = temp;
+    while (index > 0) {
+        int parent_index = (index - 1) / 2;
+        if (heap->array[parent_index] <= heap->array[index])
+            break; // Min-heap property satisfied
 
-        // Move up to the parent level
+        // Swap parent and child elements
+        heap->array[parent_index] ^= heap->array[index];
+        heap->array[index] ^= heap->array[parent_index];
+        heap->array[parent_index] ^= heap->array[index];
+
         index = parent_index;
-        parent_index = (index - 1) / 2;
     }
 }
 

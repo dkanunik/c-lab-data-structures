@@ -64,7 +64,6 @@ void heap_print(int *arr, int n, int i, int space) {
 
     heap_print(arr, n, 2 * i + 2, space);
 
-    printf("\n");
     for (int j = 5; j < space; j++)
         printf(" ");
 
@@ -77,7 +76,6 @@ void heap_to_array() {
     for (int i = 0; i < heap->size; i++) {
         printf("%d ", heap->array[i]);
     }
-    printf("\n");
 }
 
 void setUp() {
@@ -85,10 +83,17 @@ void setUp() {
 
     //generate_test_data("test1.txt", 50, 1, 100);
 
-    int *data = get_test_data("test2.txt");
+    int *data = get_test_data("test1.txt");
 
     while (*data != 0) {
-        heap_insert(heap, *(data++));
+        int element = *(data++);
+        printf("\n----------------------------------------------------\n");
+        printf("[%d] --> ", element);
+        heap_to_array();
+        printf("\n----------------------------------------------------\n");
+        heap_insert(heap, element);
+        getchar();
+        heap_print(heap->array, heap->size, 0, 0);
     }
 
 }
@@ -98,7 +103,8 @@ void tearDown() {
 }
 
 void test_heap_create(void) {
-    heap_print(heap->array, heap->size, 0, 0);
+    //heap_print(heap->array, heap->size, 0, 0);
+    //heap_to_array();
 }
 
 int main(void) {
