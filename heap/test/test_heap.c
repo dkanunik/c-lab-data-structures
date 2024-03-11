@@ -9,7 +9,7 @@ int MAX_DATA_SIZE = 100;
 int MAX_HEAP_SIZE = 100;
 int LAST_NUMBER = 0;
 char NUM_SEPARATOR = ' ';
-int HEAP_DEBUG = 3;
+int HEAP_DEBUG = 0;
 char HEAP_TEST_DATA_FILE[] = "test1.txt";
 
 int generate_test_data(char *file_name, int count, int min, int max) {
