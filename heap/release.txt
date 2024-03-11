@@ -1,0 +1,12 @@
+Heap
+------------------
+- create
+- insert
+- peek
+- extract min
+- extract by index
+- percolate up
+- percolate down
+- print as tree
+- print as row
+- free

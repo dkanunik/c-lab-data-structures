@@ -9,6 +9,8 @@ int MAX_DATA_SIZE = 100;
 int MAX_HEAP_SIZE = 100;
 int LAST_NUMBER = 0;
 char NUM_SEPARATOR = ' ';
+int HEAP_DEBUG = 3;
+char HEAP_TEST_DATA_FILE[] = "test1.txt";
 
 int generate_test_data(char *file_name, int count, int min, int max) {
     srand(time(NULL));
@@ -56,59 +58,67 @@ int *get_test_data(const char *file_name) {
 
 }
 
-void heap_print(int *arr, int n, int i, int space) {
-    if (i >= n)
-        return;
-
-    space += 10;
-
-    heap_print(arr, n, 2 * i + 2, space);
-
-    for (int j = 5; j < space; j++)
-        printf(" ");
-
-    printf("%d\n", arr[i]);
-
-    heap_print(arr, n, 2 * i + 1, space);
-}
-
-void heap_to_array() {
-    for (int i = 0; i < heap->size; i++) {
-        printf("%d ", heap->array[i]);
-    }
+void tearDown() {
+    heap_free(heap);
 }
 
 void setUp() {
     heap = heap_create(MAX_HEAP_SIZE);
 
-    //generate_test_data("test1.txt", 50, 1, 100);
-
-    int *data = get_test_data("test1.txt");
+    int *data = get_test_data(HEAP_TEST_DATA_FILE);
 
     while (*data != 0) {
         int element = *(data++);
-        printf("\n----------------------------------------------------\n");
-        printf("[%d] --> ", element);
-        heap_to_array();
-        printf("\n----------------------------------------------------\n");
+
+        if (HEAP_DEBUG == 1) {
+            printf("\n----------------------------------------------------\n");
+            printf("[%d] --> ", element);
+            heap_print_as_row(heap);
+            printf("\n----------------------------------------------------\n");
+        }
+
         heap_insert(heap, element);
-        getchar();
-        heap_print(heap->array, heap->size, 0, 0);
+
+        if (HEAP_DEBUG == 1) {
+            getchar();
+            heap_print_as_tree(heap, 0, 0);
+        }
     }
-
 }
 
-void tearDown() {
-    heap_free(heap);
+void test_heap_peek(void) {
+    int result = heap_peek(heap);
+    TEST_ASSERT_EQUAL_INT(1, result);
 }
 
-void test_heap_create(void) {
-    //heap_print(heap->array, heap->size, 0, 0);
-    //heap_to_array();
+void test_heap_extract_by_index(void) {
+    int before_size = heap->size;
+
+    int result = heap_extract_by_index(heap, 2);
+
+    TEST_ASSERT_EQUAL_INT(6, result);
+    TEST_ASSERT_EQUAL_INT(before_size - 1, heap->size);
+    if (HEAP_DEBUG == 3) {
+        heap_print_as_tree(heap, 0, 0);
+    }
+}
+
+
+void test_heap_extract_min(void) {
+    int before_size = heap->size;
+    int result = heap_extract_min(heap);
+    TEST_ASSERT_EQUAL_INT(1, result);
+    TEST_ASSERT_EQUAL_INT(before_size - 1, heap->size);
+    TEST_ASSERT_EQUAL_INT(2, heap_peek(heap));
+    if (HEAP_DEBUG == 2) {
+        heap_print_as_tree(heap, 0, 0);
+    }
 }
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_heap_create);
+    RUN_TEST(test_heap_peek);
+    RUN_TEST(test_heap_extract_min);
+    RUN_TEST(test_heap_extract_by_index);
     return UNITY_END();
 }

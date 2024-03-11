@@ -29,9 +29,8 @@ void heap_percolate_up(Heap* heap, int index) {
     while (index > 0) {
         int parent_index = (index - 1) / 2;
         if (heap->array[parent_index] <= heap->array[index])
-            break; // Min-heap property satisfied
+            break;
 
-        // Swap parent and child elements
         heap->array[parent_index] ^= heap->array[index];
         heap->array[index] ^= heap->array[parent_index];
         heap->array[parent_index] ^= heap->array[index];
@@ -54,3 +53,87 @@ void heap_insert(Heap* heap, int element) {
     heap_percolate_up(heap, heap->size - 1);
 }
 
+int heap_peek(Heap* heap) {
+    if (heap->size == 0) {
+        return -1;
+    }
+    return heap->array[0];
+}
+
+void heap_print_as_tree(Heap* heap, int i, int space) {
+    if (i >= heap->size)
+        return;
+
+    space += 10;
+
+    heap_print_as_tree(heap, 2 * i + 2, space);
+
+    for (int j = 5; j < space; j++)
+        printf(" ");
+
+    printf("%d\n", heap->array[i]);
+
+    heap_print_as_tree(heap, 2 * i + 1, space);
+}
+
+void heap_print_as_row(Heap* heap) {
+    for (int i = 0; i < heap->size; i++) {
+        printf("%d ", heap->array[i]);
+    }
+}
+
+int heap_extract_min(Heap* heap) {
+    if (heap->size == 0) {
+        return -1;
+    }
+
+    int min_value = heap->array[0];
+
+    heap->array[0] = heap->array[heap->size - 1];
+    heap->size--;
+
+    heap_percolate_down(heap, 0);
+
+    return min_value;
+}
+
+void heap_percolate_down(Heap* heap, int index) {
+    while (index < heap->size) {
+        int left_child_index = 2 * index + 1;
+        int right_child_index = 2 * index + 2;
+        int min_index = index;
+
+        if (left_child_index < heap->size && heap->array[left_child_index] < heap->array[min_index]) {
+            min_index = left_child_index;
+        }
+
+        if (right_child_index < heap->size && heap->array[right_child_index] < heap->array[min_index]) {
+            min_index = right_child_index;
+        }
+
+        if (min_index == index) {
+            break;
+        }
+
+        heap->array[min_index] ^= heap->array[index];
+        heap->array[index] ^= heap->array[min_index];
+        heap->array[min_index] ^= heap->array[index];
+
+        index = min_index;
+    }
+}
+
+int heap_extract_by_index(Heap* heap, int index) {
+    if (index >= heap->size || index < 0) {
+        return -1;
+    }
+
+    int extracted_value = heap->array[index];
+
+    heap->array[index] = heap->array[heap->size - 1];
+    heap->size--;
+
+    heap_percolate_down(heap, index);
+
+    return extracted_value;
+}
