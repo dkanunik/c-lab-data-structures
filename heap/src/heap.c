@@ -45,11 +45,9 @@ void heap_insert(Heap* heap, int element) {
         return;
     }
 
-    // Insert the new element at the end of the heap
     heap->array[heap->size] = element;
     heap->size++;
 
-    // Percolate up to maintain the min-heap property
     heap_percolate_up(heap, heap->size - 1);
 }
 
