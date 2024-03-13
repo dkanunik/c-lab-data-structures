@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include "binary_tree.h"
 
-BinaryTree* tree_create() {
+BinaryTree *tree_create() {
 
-    BinaryTree* tree = (BinaryTree *) malloc(sizeof(BinaryTree));
+    BinaryTree *tree = (BinaryTree *) malloc(sizeof(BinaryTree));
     if (tree == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
@@ -15,7 +15,7 @@ BinaryTree* tree_create() {
     return tree;
 }
 
-void tree_destroy(BinaryTree* tree) {
+void tree_destroy(BinaryTree *tree) {
     if (tree == NULL) {
         return;
     }
@@ -23,7 +23,7 @@ void tree_destroy(BinaryTree* tree) {
     free(tree);
 }
 
-void tree_nodes_destroy(TreeNode* node) {
+void tree_nodes_destroy(TreeNode *node) {
     if (node == NULL) {
         return;
     }
@@ -35,20 +35,20 @@ void tree_nodes_destroy(TreeNode* node) {
 }
 
 
-int tree_insert(BinaryTree* tree, int value) {
+int tree_insert(BinaryTree *tree, int value) {
     if (tree == NULL) {
         return -1;
     }
 
-    TreeNode* new_node = tree_create_node(value);
+    TreeNode *new_node = tree_create_node(value);
 
     if (tree->root == NULL) {
         tree->root = new_node;
         return 0;
     }
 
-    TreeNode* current = tree->root;
-    TreeNode* parent = tree->root;
+    TreeNode *current = tree->root;
+    TreeNode *parent = tree->root;
     while (current != NULL) {
         parent = current;
         if (value < current->value) {
@@ -66,8 +66,8 @@ int tree_insert(BinaryTree* tree, int value) {
     return 1;
 }
 
-TreeNode* tree_create_node(int value) {
-    TreeNode* new_node = (TreeNode*)malloc(sizeof(TreeNode));
+TreeNode *tree_create_node(int value) {
+    TreeNode *new_node = (TreeNode *) malloc(sizeof(TreeNode));
     if (new_node == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
@@ -78,4 +78,48 @@ TreeNode* tree_create_node(int value) {
     new_node->right = NULL;
 
     return new_node;
+}
+
+size_t tree_size(TreeNode *node) {
+    if (node == NULL) {
+        return 0;
+    } else {
+        size_t left_size = tree_size(node->left);
+        size_t right_size = tree_size(node->right);
+        return 1 + left_size + right_size;
+    }
+}
+
+int tree_height(TreeNode *node) {
+    if (node == NULL) {
+        return 0;
+    } else {
+        int left_height = tree_height(node->left);
+        int right_height = tree_height(node->right);
+        return 1 + (left_height > right_height ? left_height : right_height);
+    }
+}
+
+int tree_get_min(TreeNode *node) {
+    if (node == NULL) {
+        return -1;
+    }
+
+    if (node->left == NULL) {
+        return node->value;
+    }
+
+    return tree_get_min(node->left);
+}
+
+int tree_get_max(TreeNode *node) {
+    if (node == NULL) {
+        return -1;
+    }
+
+    if (node->right == NULL) {
+        return node->value;
+    }
+
+    return tree_get_max(node->right);
 }
