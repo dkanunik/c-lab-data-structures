@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "binary_tree.h"
 
 BinaryTree *tree_create() {
@@ -122,4 +123,21 @@ int tree_get_max(TreeNode *node) {
     }
 
     return tree_get_max(node->right);
+}
+
+void tree_clear(TreeNode *node) {
+    if (node == NULL) {
+        return;
+    }
+
+    tree_clear(node->left);
+    tree_clear(node->right);
+
+    node->value = 0;
+
+    node = NULL;
+}
+
+bool tree_is_empty(BinaryTree *tree) {
+    return tree_size(tree->root) == 0;
 }

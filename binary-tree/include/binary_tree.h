@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdbool.h>
 
 #ifndef BINARY_TREE_BINARY_TREE_H
 #define BINARY_TREE_BINARY_TREE_H
@@ -22,5 +23,7 @@ size_t tree_size(TreeNode* node);
 int tree_height(TreeNode* root);
 int tree_get_min(TreeNode* node);
 int tree_get_max(TreeNode *node);
+void tree_clear(TreeNode* node);
+bool tree_is_empty(BinaryTree *tree);
 
 #endif
