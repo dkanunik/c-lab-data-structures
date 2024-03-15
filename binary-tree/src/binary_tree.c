@@ -113,6 +113,16 @@ int tree_get_min(TreeNode *node) {
     return tree_get_min(node->left);
 }
 
+TreeNode* tree_get_min_node(TreeNode *node) {
+    if (node == NULL) {
+        return NULL;
+    }
+    while (node->left != NULL) {
+        node = node->left;
+    }
+    return node;
+}
+
 int tree_get_max(TreeNode *node) {
     if (node == NULL) {
         return -1;
@@ -140,4 +150,39 @@ void tree_clear(TreeNode *node) {
 
 bool tree_is_empty(BinaryTree *tree) {
     return tree_size(tree->root) == 0;
+}
+
+/**
+ * Case 1. If the node to be removed has no children, it is deleted.
+ * Case 2. If the node to be removed has only one child, the node is replaced with its child.
+ * Case 3. If the node to be removed has two children:
+ *  3.1 find the minimum node in its right subtree or the maximum node in its left subtree
+ *  3.2 copy its value to the node to be removed
+ *  3.3 recursively remove the minimum (or maximum) node in that subtree.
+ * */
+TreeNode* tree_remove(TreeNode *node, int value) {
+    if (node == NULL) {
+        return NULL;
+    }
+
+    if (value < node->value) {
+        node->left = tree_remove(node->left, value);
+    } else if (value > node->value) {
+        node->right = tree_remove(node->right, value);
+    } else {
+        if (node->left == NULL) {
+            TreeNode *right = node->right;
+            free(node);
+            return right;
+        } else if (node->right == NULL) {
+            TreeNode *left = node->left;
+            free(node);
+            return left;
+        } else {
+            TreeNode *min_right = tree_get_min_node(node->right);
+            node->value = min_right->value;
+            node->right = tree_remove(node->right, min_right->value);
+        }
+    }
+    return node;
 }
