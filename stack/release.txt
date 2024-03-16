@@ -1,9 +1,0 @@
-stack:
----------------
-stack_create - Initialize an empty stack
-stack_is_empty - Check if the stack is empty
-stack_size - Return the number of elements in the stack
-stack_push - Add an element to the top of the stack
-stack_free - Release allocated memory
-stack_pop - Remove and return the element at the top of the stack.
-stack_peek - Return the element at the top of the stack without removing it.
