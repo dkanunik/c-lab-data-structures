@@ -40,4 +40,6 @@ bool tree_is_empty(BinaryTree *tree);
 
 TreeNode *tree_remove(TreeNode *node, int value);
 
+bool tree_search(TreeNode *root, int value);
+
 #endif

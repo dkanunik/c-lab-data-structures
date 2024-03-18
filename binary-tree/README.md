@@ -10,6 +10,7 @@
 - clear - Clear all nodes from the binary tree while keeping the structure intact.
 - remove - Remove a node with a given value from the binary tree.
 - is_empty - Check if the binary tree is empty.
+- tree_search - Check if a node with a given value is in the binary tree.
 - ...
 
 _is under construction..._

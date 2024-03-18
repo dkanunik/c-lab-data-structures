@@ -43,9 +43,10 @@ void test_remove() {
     tree_insert(tree, 7);
     tree_insert(tree, 20);
     TEST_ASSERT_EQUAL_INT(tree_size(tree->root), 9);
+    TEST_ASSERT_TRUE(tree_search(tree->root, 9));
     tree_remove(tree->root, 9);
     TEST_ASSERT_EQUAL_INT(tree_size(tree->root), 8);
-    //todo: use tree_search() when it will be implemented
+    TEST_ASSERT_FALSE(tree_search(tree->root, 9));
 }
 
 void test_tree_clear() {

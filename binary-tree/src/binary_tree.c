@@ -186,3 +186,15 @@ TreeNode* tree_remove(TreeNode *node, int value) {
     }
     return node;
 }
+
+bool tree_search(TreeNode *root, int value) {
+    if (root == NULL || root->value == value) {
+        return root != NULL;
+    }
+
+    if (value < root->value) {
+        return tree_search(root->left, value);
+    } else {
+        return tree_search(root->right, value);
+    }
+}
