@@ -42,4 +42,6 @@ TreeNode *tree_remove(TreeNode *node, int value);
 
 bool tree_search(TreeNode *root, int value);
 
-#endif
+int* tree_traverse_preorder(TreeNode* node, int* array, int* index);
+
+#endif //BINARY_TREE_H

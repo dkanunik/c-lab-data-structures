@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "unity.h"
 #include "binary_tree.h"
 
@@ -63,11 +64,38 @@ void test_tree_clear() {
     TEST_ASSERT_EQUAL_INT(tree_get_max(tree->root), 0);
 }
 
+void test_tree_traverse_preorder() {
+    tree_insert(tree, 1);
+    tree_insert(tree, 3);
+    tree_insert(tree, 12);
+    tree_insert(tree, 9);
+    tree_insert(tree, 18);
+    tree_insert(tree, 2);
+    tree_insert(tree, 8);
+    tree_insert(tree, 7);
+    tree_insert(tree, 20);
+
+    int index = 0;
+    size_t size = tree_size(tree->root);
+    int *arr = (int*)calloc(size, sizeof(int));
+        if (arr == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    tree_traverse_preorder(tree->root, arr, &index);
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    //todo: check output
+    free(arr);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_size_height);
     RUN_TEST(test_tree_min_max);
     RUN_TEST(test_remove);
     RUN_TEST(test_tree_clear);
+    RUN_TEST(test_tree_traverse_preorder);
     return UNITY_END();
 }

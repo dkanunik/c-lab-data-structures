@@ -179,7 +179,7 @@ TreeNode* tree_remove(TreeNode *node, int value) {
             free(node);
             return left;
         } else {
-            TreeNode *min_right = tree_get_min_node(node->right);
+            TreeNode const *min_right = tree_get_min_node(node->right);
             node->value = min_right->value;
             node->right = tree_remove(node->right, min_right->value);
         }
@@ -197,4 +197,18 @@ bool tree_search(TreeNode *root, int value) {
     } else {
         return tree_search(root->right, value);
     }
+}
+
+int* tree_traverse_preorder(TreeNode* node, int* array, int* index) {
+    if (node == NULL) {
+        return array;
+    }
+
+    array[(*index)++] = node->value;
+
+    array = tree_traverse_preorder(node->left, array, index);
+
+    array = tree_traverse_preorder(node->right, array, index);
+
+    return array;
 }
