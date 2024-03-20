@@ -44,4 +44,6 @@ bool tree_search(TreeNode *root, int value);
 
 int* tree_traverse_preorder(TreeNode* node, int* array, int* index);
 
+int* tree_traverse_inorder(TreeNode* node, int* array, int* index);
+
 #endif //BINARY_TREE_H

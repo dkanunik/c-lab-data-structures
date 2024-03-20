@@ -11,6 +11,13 @@
 - remove - Remove a node with a given value from the binary tree.
 - is_empty - Check if the binary tree is empty.
 - tree_search - Check if a node with a given value is in the binary tree.
+- tree_traverse_preorder: Traverse the binary tree in preorder (root, left, right) and perform an operation on each node.
+- tree_traverse_inorder: Traverse the binary tree in inorder (left, root, right) and perform an operation on each node.
 - ...
 
 _is under construction..._
+
+
+### Unit Tests
+
+- [Unity](https://github.com/ThrowTheSwitch/Unity) testing framework is used

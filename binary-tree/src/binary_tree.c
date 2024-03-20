@@ -205,10 +205,20 @@ int* tree_traverse_preorder(TreeNode* node, int* array, int* index) {
     }
 
     array[(*index)++] = node->value;
-
     array = tree_traverse_preorder(node->left, array, index);
-
     array = tree_traverse_preorder(node->right, array, index);
+
+    return array;
+}
+
+int* tree_traverse_inorder(TreeNode* node, int* array, int* index) {
+    if (node == NULL) {
+        return array;
+    }
+
+    array = tree_traverse_inorder(node->left, array, index);
+    array[(*index)++] = node->value;
+    array = tree_traverse_inorder(node->right, array, index);
 
     return array;
 }
