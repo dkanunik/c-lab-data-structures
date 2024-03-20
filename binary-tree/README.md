@@ -16,8 +16,3 @@
 - ...
 
 _is under construction..._
-
-
-### Unit Tests
-
-- [Unity](https://github.com/ThrowTheSwitch/Unity) testing framework is used
