@@ -222,3 +222,15 @@ int* tree_traverse_inorder(TreeNode* node, int* array, int* index) {
 
     return array;
 }
+
+int* tree_traverse_postorder(TreeNode* node, int* array, int* index) {
+    if (node == NULL) {
+        return array;
+    }
+
+    array = tree_traverse_postorder(node->left, array, index);
+    array = tree_traverse_postorder(node->right, array, index);
+    array[(*index)++] = node->value;
+
+    return array;
+}

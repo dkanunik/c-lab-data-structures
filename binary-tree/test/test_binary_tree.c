@@ -79,6 +79,21 @@ void test_tree_traverse_inorder() {
     free(arr);
 }
 
+void test_tree_traverse_postorder() {
+    int index = 0;
+    size_t size = tree_size(tree->root);
+    int *arr = (int*)calloc(size, sizeof(int));
+    if (arr == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    tree_traverse_postorder(tree->root, arr, &index);
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    free(arr);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_size_height);
@@ -87,5 +102,6 @@ int main(void) {
     RUN_TEST(test_tree_clear);
     RUN_TEST(test_tree_traverse_preorder);
     RUN_TEST(test_tree_traverse_inorder);
+    RUN_TEST(test_tree_traverse_postorder);
     return UNITY_END();
 }
