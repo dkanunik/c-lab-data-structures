@@ -14,3 +14,4 @@ This is a laboratory project to learn data structures and implementation them wi
 ### Unit Tests
 
 - [Unity](https://github.com/ThrowTheSwitch/Unity) testing framework is used
+- [_test_data_utils](https://github.com/dkanunik/c-lab-data-structures/tree/main/_test_data_utils) - plain handmade utils for test data generating
