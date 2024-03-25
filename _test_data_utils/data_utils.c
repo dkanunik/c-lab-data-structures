@@ -1,7 +1,15 @@
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 #include "data_utils.h"
 
+int LAST_NUMBER = 0;
+char NUM_SEPARATOR = ' ';
+int MAX_DATA_SIZE = 100;
+
 int generate_test_data(char *file_name, int count, int min, int max) {
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
 
     FILE *file = fopen(file_name, "w");
     if (file == NULL) {

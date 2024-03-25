@@ -24,7 +24,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS =  $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SOURCES))
 
 # Test source files
-UNITYDIR = $(UNITI_HOME)
+UNITYDIR = /usr/local/src/unity
 TEST_SOURCES = $(wildcard $(TESTS_SRC_DIR)/*.c)
 UNITY_SOURCE = $(UNITYDIR)/unity.c
 TEST_OBJECTS =  $(patsubst $(TESTS_SRC_DIR)/%.c, $(BUILDDIR)/%.o, $(TEST_SOURCES))

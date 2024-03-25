@@ -113,7 +113,7 @@ int tree_get_min(TreeNode *node) {
     return tree_get_min(node->left);
 }
 
-TreeNode* tree_get_min_node(TreeNode *node) {
+TreeNode *tree_get_min_node(TreeNode *node) {
     if (node == NULL) {
         return NULL;
     }
@@ -160,7 +160,7 @@ bool tree_is_empty(BinaryTree *tree) {
  *  3.2 copy its value to the node to be removed
  *  3.3 recursively remove the minimum (or maximum) node in that subtree.
  * */
-TreeNode* tree_remove(TreeNode *node, int value) {
+TreeNode *tree_remove(TreeNode *node, int value) {
     if (node == NULL) {
         return NULL;
     }
@@ -199,7 +199,7 @@ bool tree_search(TreeNode *root, int value) {
     }
 }
 
-int* tree_traverse_preorder(TreeNode* node, int* array, int* index) {
+int *tree_traverse_preorder(TreeNode *node, int *array, int *index) {
     if (node == NULL) {
         return array;
     }
@@ -211,7 +211,7 @@ int* tree_traverse_preorder(TreeNode* node, int* array, int* index) {
     return array;
 }
 
-int* tree_traverse_inorder(TreeNode* node, int* array, int* index) {
+int *tree_traverse_inorder(TreeNode *node, int *array, int *index) {
     if (node == NULL) {
         return array;
     }
@@ -223,7 +223,7 @@ int* tree_traverse_inorder(TreeNode* node, int* array, int* index) {
     return array;
 }
 
-int* tree_traverse_postorder(TreeNode* node, int* array, int* index) {
+int *tree_traverse_postorder(TreeNode *node, int *array, int *index) {
     if (node == NULL) {
         return array;
     }

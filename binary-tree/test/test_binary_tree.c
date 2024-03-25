@@ -50,48 +50,54 @@ void test_tree_clear() {
 }
 
 void test_tree_traverse_preorder() {
+    int expected[] = {1, 3, 2, 12, 9, 8, 7, 18, 20};
     int index = 0;
     size_t size = tree_size(tree->root);
-    int *arr = (int*)calloc(size, sizeof(int));
-        if (arr == NULL) {
+    int *actual = (int*)calloc(size, sizeof(int));
+        if (actual == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
-    tree_traverse_preorder(tree->root, arr, &index);
+    tree_traverse_preorder(tree->root, actual, &index);
     for (int i = 0; i < size; i++) {
-        printf("%d ", arr[i]);
+        printf("%d ", actual[i]);
     }
-    free(arr);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    free(actual);
 }
 
 void test_tree_traverse_inorder() {
+    int expected[] = {1, 2, 3, 7, 8, 9, 12, 18, 20};
     int index = 0;
     size_t size = tree_size(tree->root);
-    int *arr = (int*)calloc(size, sizeof(int));
-    if (arr == NULL) {
+    int *actual = (int*)calloc(size, sizeof(int));
+    if (actual == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
-    tree_traverse_inorder(tree->root, arr, &index);
+    tree_traverse_inorder(tree->root, actual, &index);
     for (int i = 0; i < size; i++) {
-        printf("%d ", arr[i]);
+        printf("%d ", actual[i]);
     }
-    free(arr);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    free(actual);
 }
 
 void test_tree_traverse_postorder() {
+    int expected[] = {2, 7, 8, 9, 20, 18, 12, 3, 1};
     int index = 0;
     size_t size = tree_size(tree->root);
-    int *arr = (int*)calloc(size, sizeof(int));
-    if (arr == NULL) {
+    int *actual = (int*)calloc(size, sizeof(int));
+    if (actual == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
-    tree_traverse_postorder(tree->root, arr, &index);
+    tree_traverse_postorder(tree->root, actual, &index);
     for (int i = 0; i < size; i++) {
-        printf("%d ", arr[i]);
+        printf("%d ", actual[i]);
     }
-    free(arr);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    free(actual);
 }
 
 int main(void) {

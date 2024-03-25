@@ -7,7 +7,7 @@ set(C_COMPILER_LAUNCHER "gcc")
 
 include_directories(include)
 
-set(UNITY_LIBRARY_PATH /home/qa3/Projects/Unity/src)
+set(UNITY_LIBRARY_PATH /usr/local/src/unity)
 
 include_directories(${UNITY_LIBRARY_PATH})
 
