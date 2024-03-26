@@ -14,6 +14,3 @@
 - traverse_preorder - Traverse the binary tree in preorder (root, left, right) and perform an operation on each node.
 - traverse_inorder - Traverse the binary tree in inorder (left, root, right) and perform an operation on each node.
 - traverse_postorder - Traverse the binary tree in postorder (left, right, root) and perform an operation on each node.
-- ...
-
-_is under construction..._
