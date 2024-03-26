@@ -5,6 +5,7 @@ This is a laboratory project to learn data structures and implementation them wi
 ---
 
 ### List of considered data structures:
+- [directed graph](https://github.com/dkanunik/c-lab-data-structures/tree/main/directed-graph)
 - [binary tree](https://github.com/dkanunik/c-lab-data-structures/tree/main/binary-tree)
 - [hashmap](https://github.com/dkanunik/c-lab-data-structures/tree/main/hashmap)
 - [heap](https://github.com/dkanunik/c-lab-data-structures/tree/main/heap)
