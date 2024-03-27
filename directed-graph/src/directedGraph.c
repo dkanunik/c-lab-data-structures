@@ -1,6 +1,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include "directedGraph.h"
+#include <stdbool.h>
 
 void freeGraph(DirectedGraph *graph) {
     if (graph == NULL) {
@@ -76,4 +77,43 @@ void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId) {
 
     edge->next = fromVertex->edges;
     fromVertex->edges = edge;
+}
+
+bool containsVertex(const DirectedGraph *graph, int id) {
+    if (graph == NULL) {
+        return false;
+    }
+
+    Vertex *currentVertex = graph->vertices;
+    while (currentVertex != NULL) {
+        if (currentVertex->id == id) {
+            return true;
+        }
+        currentVertex = currentVertex->next;
+    }
+    return false;
+}
+
+bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex) {
+    if (graph == NULL) {
+        return false;
+    }
+
+    Edge *edge = NULL;
+    Vertex *currentVertex = graph->vertices;
+    while (currentVertex != NULL) {
+        if (currentVertex->id != fromVertex) {
+            currentVertex = currentVertex->next;
+            continue;
+        }
+        edge = currentVertex->edges;
+        while (edge != NULL) {
+            if (edge->toVertex->id == toVertex) {
+                return true;
+            }
+            edge = edge->next;
+        }
+        currentVertex = currentVertex->next;
+    }
+    return false;
 }

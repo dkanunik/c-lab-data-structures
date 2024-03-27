@@ -1,6 +1,8 @@
 #ifndef DIRECTED_GRAPH_H
 #define DIRECTED_GRAPH_H
 
+#include <stdbool.h>
+
 typedef struct Vertex {
     int id;
     struct Edge *edges;
@@ -25,5 +27,9 @@ void addVertex(DirectedGraph *graph, int id);
 void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId);
 
 void freeGraph(DirectedGraph *graph);
+
+bool containsVertex(const DirectedGraph *graph, int id);
+
+bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
 
 #endif //DIRECTED_GRAPH_H

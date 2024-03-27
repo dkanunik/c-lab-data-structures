@@ -4,5 +4,7 @@
 - createEdge
 - addVertex
 - addEdge
+- containsVertex
+- containsEdge
 - freeGraph
 - ...
