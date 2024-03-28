@@ -37,6 +37,15 @@ void testContainsVertex() {
     TEST_ASSERT_FALSE(containsVertex(&graph, 111));
 }
 
+void testGetVertices() {
+    int count = 0;
+    int const *vertices = getVertices(&graph);
+    while (vertices != NULL) {
+        count++;
+    }
+    TEST_ASSERT_EQUAL_INT(3, count);
+}
+
 void testContainsEdge() {
     TEST_ASSERT_TRUE(containsEdge(&graph, 1, 2));
     TEST_ASSERT_TRUE(containsEdge(&graph, 2, 1));
@@ -52,5 +61,6 @@ int main(void) {
     RUN_TEST(testAddEdge);
     RUN_TEST(testContainsVertex);
     RUN_TEST(testContainsEdge);
+    RUN_TEST(testGetVertices);
     return UNITY_END();
 }

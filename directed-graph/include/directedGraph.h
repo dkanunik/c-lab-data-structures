@@ -32,4 +32,6 @@ bool containsVertex(const DirectedGraph *graph, int id);
 
 bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
 
+int *getVertices(DirectedGraph *graph);
+
 #endif //DIRECTED_GRAPH_H

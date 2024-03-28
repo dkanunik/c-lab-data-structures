@@ -117,3 +117,31 @@ bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex) {
     }
     return false;
 }
+
+int *getVertices(DirectedGraph *graph) {
+    int count = 0;
+    Vertex *currentVertex = graph->vertices;
+    while (currentVertex != NULL) {
+        count++;
+        currentVertex = currentVertex->next;
+    }
+
+    if (count == 0) {
+        return NULL;
+    }
+
+    int *vertices = (int *) malloc(count * sizeof(int));
+    if (vertices == NULL) {
+        fprintf(stderr, "Memory allocation failed during getVertices() call\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int index = 0;
+    currentVertex = graph->vertices;
+    while (currentVertex != NULL) {
+        vertices[index++] = currentVertex->id;
+        currentVertex = currentVertex->next;
+    }
+
+    return vertices;
+}

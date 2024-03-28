@@ -6,5 +6,6 @@
 - addEdge
 - containsVertex
 - containsEdge
+- getVertices
 - freeGraph
 - ...
