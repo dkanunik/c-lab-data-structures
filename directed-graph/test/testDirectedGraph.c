@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "unity.h"
 #include "directedGraph.h"
+#include "edgeData.h"
 
 DirectedGraph graph = {NULL};
 
@@ -23,13 +24,13 @@ void testAddVertex() {
     Vertex *v = graph.vertices;
     while (v != NULL) {
         counter++;
-        v = v->next;
+        v = v->previous;
     }
     TEST_ASSERT_EQUAL_INT(3, counter);
 }
 
 void testAddEdge() {
-    TEST_ASSERT_EQUAL_INT(3, graph.vertices[0].next->edges->toVertex->id);
+    TEST_ASSERT_EQUAL_INT(3, graph.vertices[0].previous->edges->toVertex->id);
 }
 
 void testContainsVertex() {
@@ -38,11 +39,12 @@ void testContainsVertex() {
 }
 
 void testGetVertices() {
-    int count = 0;
-    int const *vertices = getVertices(&graph);
-    while (vertices != NULL) {
-        count++;
+    size_t count = 0;
+    int const *vertices = getVerticesData(&graph);
+    while ( vertices[count] != -1) {
+        ++count;
     }
+
     TEST_ASSERT_EQUAL_INT(3, count);
 }
 
@@ -55,6 +57,13 @@ void testContainsEdge() {
     TEST_ASSERT_FALSE(containsEdge(&graph, 1, 1));
 }
 
+void testGetEdgesData() {
+    EdgeData const* edgeData = getEdgeData(&graph);
+    TEST_ASSERT_EQUAL_INT(2, edgeData[0].fromVertex);
+    TEST_ASSERT_EQUAL_INT(3, edgeData[0].toVertex);
+    //todo: complete verification
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(testAddVertex);
@@ -62,5 +71,6 @@ int main(void) {
     RUN_TEST(testContainsVertex);
     RUN_TEST(testContainsEdge);
     RUN_TEST(testGetVertices);
+    RUN_TEST(testGetEdgesData);
     return UNITY_END();
 }

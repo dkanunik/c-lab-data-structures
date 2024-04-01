@@ -9,7 +9,7 @@ void freeGraph(DirectedGraph *graph) {
     }
     Vertex *vertex = graph->vertices;
     while (vertex != NULL) {
-        Vertex *nextVertex = vertex->next;
+        Vertex *nextVertex = vertex->previous;
         Edge *edge = vertex->edges;
         while (edge != NULL) {
             Edge *nextEdge = edge->next;
@@ -31,7 +31,7 @@ Vertex *createVertex(int id) {
 
     vertex->id = id;
     vertex->edges = NULL;
-    vertex->next = NULL;
+    vertex->previous = NULL;
     return vertex;
 }
 
@@ -49,7 +49,7 @@ Edge *createEdge(Vertex *vertex) {
 
 void addVertex(DirectedGraph *graph, int id) {
     Vertex *vertex = createVertex(id);
-    vertex->next = graph->vertices;
+    vertex->previous = graph->vertices;
     graph->vertices = vertex;
 }
 
@@ -65,7 +65,7 @@ void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId) {
         if (vertex->id == toVertexId) {
             toVertex = vertex;
         }
-        vertex = vertex->next;
+        vertex = vertex->previous;
     }
 
     if (fromVertex == NULL || toVertex == NULL) {
@@ -79,7 +79,7 @@ void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId) {
     fromVertex->edges = edge;
 }
 
-bool containsVertex(const DirectedGraph *graph, int id) {
+bool containsVertex(DirectedGraph *graph, int id) {
     if (graph == NULL) {
         return false;
     }
@@ -89,7 +89,7 @@ bool containsVertex(const DirectedGraph *graph, int id) {
         if (currentVertex->id == id) {
             return true;
         }
-        currentVertex = currentVertex->next;
+        currentVertex = currentVertex->previous;
     }
     return false;
 }
@@ -103,7 +103,7 @@ bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex) {
     Vertex *currentVertex = graph->vertices;
     while (currentVertex != NULL) {
         if (currentVertex->id != fromVertex) {
-            currentVertex = currentVertex->next;
+            currentVertex = currentVertex->previous;
             continue;
         }
         edge = currentVertex->edges;
@@ -113,26 +113,26 @@ bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex) {
             }
             edge = edge->next;
         }
-        currentVertex = currentVertex->next;
+        currentVertex = currentVertex->previous;
     }
     return false;
 }
 
-int *getVertices(DirectedGraph *graph) {
+int *getVerticesData(DirectedGraph *graph) {
     int count = 0;
     Vertex *currentVertex = graph->vertices;
     while (currentVertex != NULL) {
         count++;
-        currentVertex = currentVertex->next;
+        currentVertex = currentVertex->previous;
     }
 
     if (count == 0) {
         return NULL;
     }
 
-    int *vertices = (int *) malloc(count * sizeof(int));
+    int *vertices = (int *) malloc(count * sizeof(int) + 1);
     if (vertices == NULL) {
-        fprintf(stderr, "Memory allocation failed during getVertices() call\n");
+        fprintf(stderr, "Memory allocation failed during getVerticesData() call\n");
         exit(EXIT_FAILURE);
     }
 
@@ -140,8 +140,10 @@ int *getVertices(DirectedGraph *graph) {
     currentVertex = graph->vertices;
     while (currentVertex != NULL) {
         vertices[index++] = currentVertex->id;
-        currentVertex = currentVertex->next;
+        currentVertex = currentVertex->previous;
     }
 
+    vertices[index++] = -1;
     return vertices;
 }
+

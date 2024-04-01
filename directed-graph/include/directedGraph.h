@@ -2,11 +2,14 @@
 #define DIRECTED_GRAPH_H
 
 #include <stdbool.h>
+#include "edgeData.h"
+
+typedef struct EdgeData EdgeData;
 
 typedef struct Vertex {
     int id;
     struct Edge *edges;
-    struct Vertex *next;
+    struct Vertex *previous;
 } Vertex;
 
 typedef struct Edge {
@@ -14,8 +17,9 @@ typedef struct Edge {
     struct Edge *next;
 } Edge;
 
-typedef struct {
+typedef struct DirectedGraph {
     Vertex *vertices;
+    EdgeData **edgeData;
 } DirectedGraph;
 
 Vertex *createVertex(int id);
@@ -28,10 +32,10 @@ void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId);
 
 void freeGraph(DirectedGraph *graph);
 
-bool containsVertex(const DirectedGraph *graph, int id);
+bool containsVertex(DirectedGraph *graph, int id);
 
 bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
 
-int *getVertices(DirectedGraph *graph);
+int *getVerticesData(DirectedGraph *graph);
 
 #endif //DIRECTED_GRAPH_H
