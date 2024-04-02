@@ -14,6 +14,12 @@ EdgeData *createEdgeData(const Vertex *fromVertex, const Vertex *toVertex) {
     return edgeData;
 }
 
+void recalculateEdgeData(DirectedGraph const *graph, size_t size) {
+    for (size_t i = 0; i < size; i++) {
+        graph->edgeData[i]->size = size;
+    }
+}
+
 void appendEdgeData(DirectedGraph *graph, EdgeData *data, size_t size) {
     EdgeData **edges;
 
@@ -27,11 +33,15 @@ void appendEdgeData(DirectedGraph *graph, EdgeData *data, size_t size) {
         fprintf(stderr, "Memory allocation failed during EdgeData appending\n");
         exit(EXIT_FAILURE);
     }
+
+    data->index = size;
     graph->edgeData = edges;
     graph->edgeData[size] = data;
+
+    recalculateEdgeData(graph, size + 1);
 }
 
-EdgeData *getEdgeData(DirectedGraph *graph) {
+EdgeData **getEdgesData(DirectedGraph *graph) {
     if (graph == NULL) {
         return NULL;
     }
@@ -42,12 +52,12 @@ EdgeData *getEdgeData(DirectedGraph *graph) {
     while (currentVertex != NULL) {
         Edge *currentEdge = currentVertex->edges;
         while (currentEdge != NULL) {
-            EdgeData *data = createEdgeData(currentVertex, currentVertex->edges->toVertex);
+            EdgeData *data = createEdgeData(currentVertex, currentEdge->toVertex);
             appendEdgeData(graph, data, size);
-            size++;
             currentEdge = currentEdge->next;
+            size++;
         }
         currentVertex = currentVertex->previous;
     }
-    return *graph->edgeData;
+    return graph->edgeData;
 }

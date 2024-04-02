@@ -7,10 +7,12 @@
 typedef struct EdgeData {
     int fromVertex;
     int toVertex;
+    size_t index;
+    size_t size;
 } EdgeData;
 
 typedef struct DirectedGraph DirectedGraph;
 
-EdgeData *getEdgeData(DirectedGraph *graph);
+EdgeData **getEdgesData(DirectedGraph *graph);
 
 #endif //EDGE_DATA_H

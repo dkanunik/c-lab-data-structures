@@ -7,5 +7,6 @@
 - containsVertex
 - containsEdge
 - getVerticesData
+- getEdgesData
 - freeGraph
 - ...

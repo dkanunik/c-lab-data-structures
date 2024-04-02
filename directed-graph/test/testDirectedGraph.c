@@ -3,6 +3,8 @@
 #include "directedGraph.h"
 #include "edgeData.h"
 
+bool DEBUG = false;
+
 DirectedGraph graph = {NULL};
 
 void tearDown() {
@@ -41,7 +43,7 @@ void testContainsVertex() {
 void testGetVertices() {
     size_t count = 0;
     int const *vertices = getVerticesData(&graph);
-    while ( vertices[count] != -1) {
+    while (vertices[count] != -1) {
         ++count;
     }
 
@@ -58,10 +60,23 @@ void testContainsEdge() {
 }
 
 void testGetEdgesData() {
-    EdgeData const* edgeData = getEdgeData(&graph);
-    TEST_ASSERT_EQUAL_INT(2, edgeData[0].fromVertex);
-    TEST_ASSERT_EQUAL_INT(3, edgeData[0].toVertex);
-    //todo: complete verification
+    EdgeData **edges = getEdgesData(&graph);
+    TEST_ASSERT_EQUAL_INT(2, edges[0]->fromVertex);
+    TEST_ASSERT_EQUAL_INT(3, edges[0]->toVertex);
+    TEST_ASSERT_EQUAL_INT(2, edges[1]->fromVertex);
+    TEST_ASSERT_EQUAL_INT(1, edges[1]->toVertex);
+    TEST_ASSERT_EQUAL_INT(1, edges[2]->fromVertex);
+    TEST_ASSERT_EQUAL_INT(2, edges[2]->toVertex);
+    size_t count = 0;
+
+    while (DEBUG) {
+        EdgeData const *edgeData = edges[count++];
+        printf("from [%d] to [%d]\n", edgeData->fromVertex, edgeData->toVertex);
+
+        if (edgeData->index + 1 == edgeData->size) {
+            break;
+        }
+    }
 }
 
 int main(void) {
