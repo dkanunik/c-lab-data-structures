@@ -2,7 +2,7 @@
 #define DIRECTED_GRAPH_H
 
 #include <stdbool.h>
-#include "edgeData.h"
+#include "edge.h"
 
 typedef struct EdgeData EdgeData;
 
@@ -12,19 +12,10 @@ typedef struct Vertex {
     struct Vertex *previous;
 } Vertex;
 
-typedef struct Edge {
-    struct Vertex *toVertex;
-    struct Edge *next;
-} Edge;
-
 typedef struct DirectedGraph {
     Vertex *vertices;
     EdgeData **edgeData;
 } DirectedGraph;
-
-Vertex *createVertex(int id);
-
-Edge *createEdge(Vertex *vertex);
 
 void addVertex(DirectedGraph *graph, int id);
 

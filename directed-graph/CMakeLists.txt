@@ -15,7 +15,8 @@ include_directories(${TEST_UTILS_PATH})
 
 set(SOURCE_FILES
         src/directedGraph.c
-        src/edgeData.c
+        src/edge.c
+        src/vertex.c
 )
 
 set(UNITY_SOURCE_FILES
@@ -23,9 +24,9 @@ set(UNITY_SOURCE_FILES
 )
 
 set(TEST_UTILS_PATH
-        ${TEST_UTILS_PATH}/data_utils.c
+        ${TEST_UTILS_PATH}/data_utils.h
         include/directedGraph.h
-        include/edgeData.h
+        include/edge.h
         test/testDirectedGraph.c
 )
 

@@ -4,9 +4,11 @@
 - createEdge
 - addVertex
 - addEdge
+- removeEdge
 - containsVertex
 - containsEdge
 - getVerticesData
-- getEdgesData
+- getEdgeData
+- freeEdgeData
 - freeGraph
 - ...

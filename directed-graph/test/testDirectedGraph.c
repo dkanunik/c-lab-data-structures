@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "unity.h"
 #include "directedGraph.h"
-#include "edgeData.h"
+#include "edge.h"
 
 bool DEBUG = false;
 
@@ -60,7 +60,7 @@ void testContainsEdge() {
 }
 
 void testGetEdgesData() {
-    EdgeData **edges = getEdgesData(&graph);
+    EdgeData **edges = getEdgeData(&graph);
     TEST_ASSERT_EQUAL_INT(2, edges[0]->fromVertex);
     TEST_ASSERT_EQUAL_INT(3, edges[0]->toVertex);
     TEST_ASSERT_EQUAL_INT(2, edges[1]->fromVertex);
@@ -79,6 +79,35 @@ void testGetEdgesData() {
     }
 }
 
+void testRemoveEdge() {
+    const int FROM_ID = 2;
+    const int TO_ID = 3;
+    bool isEdgeFound = false;
+
+    bool result = removeEdge(&graph, FROM_ID, TO_ID);
+    TEST_ASSERT_TRUE(result);
+
+    Vertex *currentVertex = &graph.vertices[0];
+    while (currentVertex != NULL) {
+        if (currentVertex->id != FROM_ID) {
+            currentVertex = currentVertex->previous;
+            continue;
+        }
+
+        Edge* currentEdge = currentVertex->edges;
+        while (currentEdge != NULL) {
+            if (currentEdge->toVertex->id == TO_ID) {
+                isEdgeFound = true;
+            }
+            currentEdge = currentEdge->next;
+        }
+
+        break;
+    }
+
+    TEST_ASSERT_FALSE(isEdgeFound);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(testAddVertex);
@@ -87,5 +116,6 @@ int main(void) {
     RUN_TEST(testContainsEdge);
     RUN_TEST(testGetVertices);
     RUN_TEST(testGetEdgesData);
+    RUN_TEST(testRemoveEdge);
     return UNITY_END();
 }

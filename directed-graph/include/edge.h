@@ -4,6 +4,11 @@
 #include <stdbool.h>
 #include "directedGraph.h"
 
+typedef struct Edge {
+    struct Vertex *toVertex;
+    struct Edge *next;
+} Edge;
+
 typedef struct EdgeData {
     int fromVertex;
     int toVertex;
@@ -13,6 +18,10 @@ typedef struct EdgeData {
 
 typedef struct DirectedGraph DirectedGraph;
 
-EdgeData **getEdgesData(DirectedGraph *graph);
+EdgeData **getEdgeData(DirectedGraph *graph);
+
+bool removeEdge(DirectedGraph *graph, int fromVertex, int toVertex);
+
+void freeEdgeData(DirectedGraph *graph);
 
 #endif //EDGE_DATA_H
