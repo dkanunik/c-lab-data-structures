@@ -65,3 +65,44 @@ int *getVerticesData(DirectedGraph *graph) {
     vertices[index++] = -1;
     return vertices;
 }
+
+bool removeVertex(DirectedGraph *graph, int removeVertexId) {
+    Vertex *passedVertex = NULL;
+    Vertex *currentVertex = graph->vertices;
+    while (currentVertex != NULL) {
+        if (currentVertex->id == removeVertexId) {
+            if (currentVertex->previous != NULL && passedVertex != NULL) {
+                passedVertex->previous = currentVertex->previous;
+            }
+
+            if (currentVertex->previous == NULL && passedVertex != NULL) {
+                passedVertex->previous = NULL;
+            }
+
+            if (graph->vertices->id == currentVertex->id) {
+                graph->vertices =  currentVertex->previous;
+            }
+
+            freeVertex(currentVertex);
+            return true;
+        }
+        passedVertex = currentVertex;
+        currentVertex = currentVertex->previous;
+    }
+
+    return false;
+}
+
+size_t getVertexCount(DirectedGraph *graph) {
+    size_t counter = 0;
+    Vertex *v = graph->vertices;
+    while (v != NULL) {
+        counter++;
+        v = v->previous;
+    }
+    return counter;
+}
+
+void freeVertex(Vertex *vertex) {
+    free(vertex);
+}

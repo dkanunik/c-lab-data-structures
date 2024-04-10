@@ -2,7 +2,6 @@
 #define DIRECTED_GRAPH_H
 
 #include <stdbool.h>
-#include "edge.h"
 
 typedef struct EdgeData EdgeData;
 
@@ -17,16 +16,42 @@ typedef struct DirectedGraph {
     EdgeData **edgeData;
 } DirectedGraph;
 
-void addVertex(DirectedGraph *graph, int id);
+typedef struct Edge {
+    struct Vertex *toVertex;
+    struct Edge *next;
+} Edge;
+
+typedef struct EdgeData {
+    int fromVertex;
+    int toVertex;
+    size_t index;
+    size_t size;
+} EdgeData;
+
+typedef struct DirectedGraph DirectedGraph;
+
+EdgeData **getEdgeData(DirectedGraph *graph);
+
+bool removeEdge(DirectedGraph *graph, int fromVertex, int toVertex);
+
+void freeEdgeData(DirectedGraph *graph);
+
+void addVertex(DirectedGraph *graph, int vertexId);
 
 void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId);
 
 void freeGraph(DirectedGraph *graph);
 
-bool containsVertex(DirectedGraph *graph, int id);
+bool containsVertex(DirectedGraph *graph, int vertexId);
 
 bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
 
 int *getVerticesData(DirectedGraph *graph);
+
+size_t getVertexCount(DirectedGraph *graph);
+
+bool removeVertex(DirectedGraph *graph, int removeVertexId);
+
+void freeVertex(Vertex *vertex);
 
 #endif //DIRECTED_GRAPH_H

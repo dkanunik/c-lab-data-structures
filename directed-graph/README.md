@@ -1,13 +1,15 @@
 ### Directed Graph
 
 - createVertex
-- createEdge
 - addVertex
-- addEdge
-- removeEdge
 - containsVertex
-- containsEdge
 - getVerticesData
+- getVertexCount
+- removeVertex
+- createEdge
+- addEdge
+- containsEdge
+- removeEdge
 - getEdgeData
 - freeEdgeData
 - freeGraph

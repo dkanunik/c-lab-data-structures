@@ -26,7 +26,6 @@ set(UNITY_SOURCE_FILES
 set(TEST_UTILS_PATH
         ${TEST_UTILS_PATH}/data_utils.h
         include/directedGraph.h
-        include/edge.h
         test/testDirectedGraph.c
 )
 

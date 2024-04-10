@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include "unity.h"
 #include "directedGraph.h"
-#include "edge.h"
+
+void checkIfVertexExist(size_t expectedVertexCount, int removeVertexId);
 
 bool DEBUG = false;
 
@@ -21,14 +22,21 @@ void setUp() {
     addEdge(&graph, 2, 3);
 }
 
+void testGetVertexCount() {
+    const size_t EXPECTED_VERTEX_COUNT = 3;
+    size_t currentVertexCount = getVertexCount(&graph);
+    TEST_ASSERT_EQUAL_INT(EXPECTED_VERTEX_COUNT, currentVertexCount);
+}
+
 void testAddVertex() {
+    const size_t EXPECTED_VERTEX_COUNT = 3;
     int counter = 0;
     Vertex *v = graph.vertices;
     while (v != NULL) {
         counter++;
         v = v->previous;
     }
-    TEST_ASSERT_EQUAL_INT(3, counter);
+    TEST_ASSERT_EQUAL_INT(EXPECTED_VERTEX_COUNT, counter);
 }
 
 void testAddEdge() {
@@ -40,7 +48,7 @@ void testContainsVertex() {
     TEST_ASSERT_FALSE(containsVertex(&graph, 111));
 }
 
-void testGetVertices() {
+void testGetVerticesData() {
     size_t count = 0;
     int const *vertices = getVerticesData(&graph);
     while (vertices[count] != -1) {
@@ -108,14 +116,72 @@ void testRemoveEdge() {
     TEST_ASSERT_FALSE(isEdgeFound);
 }
 
+void testRemoveNonexistentVertex() {
+    const size_t EXPECTED_VERTEX_COUNT = 3;
+    const int NONEXISTENT_VERTEX_ID = 1000;
+
+    bool currentRemoveResult = removeVertex(&graph, NONEXISTENT_VERTEX_ID);
+    size_t currentVertexCount = getVertexCount(&graph);
+
+    TEST_ASSERT_FALSE(currentRemoveResult);
+    TEST_ASSERT_EQUAL_INT(EXPECTED_VERTEX_COUNT, currentVertexCount);
+}
+
+void testRemoveExistentVertex_1() {
+    const size_t EXPECTED_VERTEX_COUNT = 2;
+    const int REMOVE_VERTEX_ID = 1;
+
+    checkIfVertexExist(EXPECTED_VERTEX_COUNT, REMOVE_VERTEX_ID);
+}
+
+void testRemoveExistentVertex_2() {
+    const size_t EXPECTED_VERTEX_COUNT = 2;
+    const int REMOVE_VERTEX_ID = 2;
+
+    checkIfVertexExist(EXPECTED_VERTEX_COUNT, REMOVE_VERTEX_ID);
+}
+
+void testRemoveExistentVertex_3() {
+    const size_t EXPECTED_VERTEX_COUNT = 2;
+    const int REMOVE_VERTEX_ID = 3;
+
+    checkIfVertexExist(EXPECTED_VERTEX_COUNT, REMOVE_VERTEX_ID);
+}
+
+void checkIfVertexExist(const size_t expectedVertexCount, const int removeVertexId) {
+    bool currentRemoveResult = removeVertex(&graph, removeVertexId);
+    size_t currentVertexCount = getVertexCount(&graph);
+
+    TEST_ASSERT_TRUE(currentRemoveResult);
+    TEST_ASSERT_EQUAL_INT(expectedVertexCount, currentVertexCount);
+
+    size_t count = 0;
+    bool isVertexExisted = false;
+    int const *vertices = getVerticesData(&graph);
+    while (vertices[count] != -1) {
+        if (vertices[count] == removeVertexId) {
+            isVertexExisted = true;
+            break;
+        }
+        ++count;
+    }
+
+    TEST_ASSERT_FALSE(isVertexExisted);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(testAddVertex);
+    RUN_TEST(testGetVertexCount);
     RUN_TEST(testAddEdge);
     RUN_TEST(testContainsVertex);
     RUN_TEST(testContainsEdge);
-    RUN_TEST(testGetVertices);
+    RUN_TEST(testGetVerticesData);
     RUN_TEST(testGetEdgesData);
     RUN_TEST(testRemoveEdge);
+    RUN_TEST(testRemoveNonexistentVertex);
+    RUN_TEST(testRemoveExistentVertex_1);
+    RUN_TEST(testRemoveExistentVertex_2);
+    RUN_TEST(testRemoveExistentVertex_3);
     return UNITY_END();
 }
