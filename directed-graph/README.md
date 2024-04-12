@@ -4,7 +4,7 @@
 - addVertex
 - containsVertex
 - getVerticesData
-- testGetVertexOutcomeNeighbors
+- getVertexOutcomeNeighbors
 - getVertexCount
 - removeVertex
 - createEdge
