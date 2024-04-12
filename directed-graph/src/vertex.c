@@ -66,6 +66,49 @@ int *getVerticesData(DirectedGraph *graph) {
     return vertices;
 }
 
+Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int id) {
+    if (graph == NULL) {
+        return NULL;
+    }
+
+    Vertex *contextVertex = getVertex(graph, id);
+
+    if (contextVertex == NULL) {
+        return NULL;
+    }
+
+    Vertex *neighborsList = NULL;
+    Edge *edge = contextVertex->edges;
+
+    while (edge != NULL) {
+        if (neighborsList == NULL) {
+            neighborsList = createVertex(edge->toVertex->id);
+        } else {
+            Vertex *lastVertexOnList = neighborsList;
+            while (lastVertexOnList->previous != NULL) {
+                lastVertexOnList = lastVertexOnList->previous;
+            }
+            lastVertexOnList->previous = edge->toVertex;
+        }
+        edge = edge->next;
+    }
+
+    return neighborsList;
+}
+
+Vertex *getVertex(DirectedGraph *graph, int id) {
+    Vertex *vertex = NULL;
+    Vertex *tmpVertex = graph->vertices;
+    while (tmpVertex != NULL) {
+        if (tmpVertex->id == id) {
+            vertex = tmpVertex;
+            break;
+        }
+        tmpVertex = tmpVertex->previous;
+    }
+    return vertex;
+}
+
 bool removeVertex(DirectedGraph *graph, int removeVertexId) {
     Vertex *passedVertex = NULL;
     Vertex *currentVertex = graph->vertices;

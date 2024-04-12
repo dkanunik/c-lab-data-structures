@@ -58,6 +58,18 @@ void testGetVerticesData() {
     TEST_ASSERT_EQUAL_INT(3, count);
 }
 
+void testGetVertexOutcomeNeighbors() {
+    Vertex *neighbors = getVertexOutcomeNeighbors(&graph, 2);
+    size_t count = 0;
+    size_t EXPECTED_COUNT = 2;
+    while (neighbors != NULL) {
+        TEST_ASSERT_TRUE(neighbors->id == 1 || neighbors->id == 3);
+        count++;
+        neighbors = neighbors->previous;
+    }
+    TEST_ASSERT_EQUAL_INT(EXPECTED_COUNT, count);
+}
+
 void testContainsEdge() {
     TEST_ASSERT_TRUE(containsEdge(&graph, 1, 2));
     TEST_ASSERT_TRUE(containsEdge(&graph, 2, 1));
@@ -176,6 +188,7 @@ int main(void) {
     RUN_TEST(testAddEdge);
     RUN_TEST(testContainsVertex);
     RUN_TEST(testContainsEdge);
+    RUN_TEST(testGetVertexOutcomeNeighbors);
     RUN_TEST(testGetVerticesData);
     RUN_TEST(testGetEdgesData);
     RUN_TEST(testRemoveEdge);

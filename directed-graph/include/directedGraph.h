@@ -3,7 +3,12 @@
 
 #include <stdbool.h>
 
-typedef struct EdgeData EdgeData;
+typedef struct EdgeData {
+    int fromVertex;
+    int toVertex;
+    size_t index;
+    size_t size;
+} EdgeData;
 
 typedef struct Vertex {
     int id;
@@ -21,37 +26,33 @@ typedef struct Edge {
     struct Edge *next;
 } Edge;
 
-typedef struct EdgeData {
-    int fromVertex;
-    int toVertex;
-    size_t index;
-    size_t size;
-} EdgeData;
-
-typedef struct DirectedGraph DirectedGraph;
-
-EdgeData **getEdgeData(DirectedGraph *graph);
-
-bool removeEdge(DirectedGraph *graph, int fromVertex, int toVertex);
-
-void freeEdgeData(DirectedGraph *graph);
 
 void addVertex(DirectedGraph *graph, int vertexId);
 
-void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId);
-
-void freeGraph(DirectedGraph *graph);
-
 bool containsVertex(DirectedGraph *graph, int vertexId);
 
-bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
+Vertex *getVertex(DirectedGraph *graph, int id);
 
 int *getVerticesData(DirectedGraph *graph);
+
+Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int id);
 
 size_t getVertexCount(DirectedGraph *graph);
 
 bool removeVertex(DirectedGraph *graph, int removeVertexId);
 
 void freeVertex(Vertex *vertex);
+
+void addEdge(DirectedGraph *graph, int fromVertexId, int toVertexId);
+
+EdgeData **getEdgeData(DirectedGraph *graph);
+
+bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
+
+bool removeEdge(DirectedGraph *graph, int fromVertex, int toVertex);
+
+void freeEdgeData(DirectedGraph *graph);
+
+void freeGraph(DirectedGraph *graph);
 
 #endif //DIRECTED_GRAPH_H
