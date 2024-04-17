@@ -58,7 +58,7 @@ void testGetVerticesData() {
     TEST_ASSERT_EQUAL_INT(3, count);
 }
 
-void testGetVertexOutcomeNeighbors() {
+void testGetVertexOutcomeNeighbors_2() {
     Vertex *neighbors = getVertexOutcomeNeighbors(&graph, 2);
     size_t count = 0;
     size_t EXPECTED_COUNT = 2;
@@ -68,6 +68,52 @@ void testGetVertexOutcomeNeighbors() {
         neighbors = neighbors->previous;
     }
     TEST_ASSERT_EQUAL_INT(EXPECTED_COUNT, count);
+}
+
+void testGetVertexOutcomeNeighbors_4() {
+    Vertex const *neighbors = getVertexOutcomeNeighbors(&graph, 4);
+    TEST_ASSERT_NULL(neighbors);
+}
+
+void testGetVertexOutcomeNeighbors_5() {
+    addVertex(&graph, 5);
+    Vertex const *neighbors = getVertexOutcomeNeighbors(&graph, 5);
+    TEST_ASSERT_NULL(neighbors);
+}
+
+void testGetVertexIncomeNeighbors_1() {
+    Vertex *neighbors = getVertexIncomeNeighbors(&graph, 1);
+    size_t count = 0;
+    size_t EXPECTED_COUNT = 1;
+    while (neighbors != NULL) {
+        TEST_ASSERT_TRUE(neighbors->id == 2);
+        count++;
+        neighbors = neighbors->previous;
+    }
+    TEST_ASSERT_EQUAL_INT(EXPECTED_COUNT, count);
+}
+
+void testGetVertexIncomeNeighbors_2() {
+    Vertex *neighbors = getVertexIncomeNeighbors(&graph, 2);
+    size_t count = 0;
+    size_t EXPECTED_COUNT = 1;
+    while (neighbors != NULL) {
+        TEST_ASSERT_TRUE(neighbors->id == 1);
+        count++;
+        neighbors = neighbors->previous;
+    }
+    TEST_ASSERT_EQUAL_INT(EXPECTED_COUNT, count);
+}
+
+void testGetVertexIncomeNeighbors_4() {
+    Vertex const *neighbors = getVertexIncomeNeighbors(&graph, 4);
+    TEST_ASSERT_NULL(neighbors);
+}
+
+void testGetVertexIncomeNeighbors_5() {
+    addVertex(&graph, 5);
+    Vertex const *neighbors = getVertexIncomeNeighbors(&graph, 5);
+    TEST_ASSERT_NULL(neighbors);
 }
 
 void testContainsEdge() {
@@ -181,6 +227,28 @@ void checkIfVertexExist(const size_t expectedVertexCount, const int removeVertex
     TEST_ASSERT_FALSE(isVertexExisted);
 }
 
+void testIsEmpty() {
+    TEST_ASSERT_FALSE(isEmpty(&graph));
+
+    removeVertex(&graph, 1);
+    removeVertex(&graph, 2);
+    removeVertex(&graph, 3);
+
+    TEST_ASSERT_TRUE(isEmpty(&graph));
+}
+
+void testSize() {
+    const size_t EXP_SZ_BEFORE_DEL = 3;
+    const size_t EXP_SZ_AFTER_DEL = 0;
+    TEST_ASSERT_EQUAL_INT(EXP_SZ_BEFORE_DEL, size(&graph));
+
+    removeVertex(&graph, 1);
+    removeVertex(&graph, 2);
+    removeVertex(&graph, 3);
+
+    TEST_ASSERT_EQUAL_INT(EXP_SZ_AFTER_DEL, size(&graph));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(testAddVertex);
@@ -188,7 +256,13 @@ int main(void) {
     RUN_TEST(testAddEdge);
     RUN_TEST(testContainsVertex);
     RUN_TEST(testContainsEdge);
-    RUN_TEST(testGetVertexOutcomeNeighbors);
+    RUN_TEST(testGetVertexOutcomeNeighbors_2);
+    RUN_TEST(testGetVertexOutcomeNeighbors_4);
+    RUN_TEST(testGetVertexOutcomeNeighbors_5);
+    RUN_TEST(testGetVertexIncomeNeighbors_1);
+    RUN_TEST(testGetVertexIncomeNeighbors_2);
+    RUN_TEST(testGetVertexIncomeNeighbors_4);
+    RUN_TEST(testGetVertexIncomeNeighbors_5);
     RUN_TEST(testGetVerticesData);
     RUN_TEST(testGetEdgesData);
     RUN_TEST(testRemoveEdge);
@@ -196,5 +270,7 @@ int main(void) {
     RUN_TEST(testRemoveExistentVertex_1);
     RUN_TEST(testRemoveExistentVertex_2);
     RUN_TEST(testRemoveExistentVertex_3);
+    RUN_TEST(testIsEmpty);
+    RUN_TEST(testSize);
     return UNITY_END();
 }

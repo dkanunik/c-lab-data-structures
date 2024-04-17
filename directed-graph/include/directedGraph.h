@@ -35,7 +35,9 @@ Vertex *getVertex(DirectedGraph *graph, int id);
 
 int *getVerticesData(DirectedGraph *graph);
 
-Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int id);
+Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int vertexId);
+
+Vertex* getVertexIncomeNeighbors(DirectedGraph *graph, int vertexId);
 
 size_t getVertexCount(DirectedGraph *graph);
 
@@ -50,6 +52,10 @@ EdgeData **getEdgeData(DirectedGraph *graph);
 bool containsEdge(DirectedGraph *graph, int fromVertex, int toVertex);
 
 bool removeEdge(DirectedGraph *graph, int fromVertex, int toVertex);
+
+bool isEmpty(const DirectedGraph* graph);
+
+size_t size(const DirectedGraph* graph);
 
 void freeEdgeData(DirectedGraph *graph);
 

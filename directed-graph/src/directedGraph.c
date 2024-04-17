@@ -23,3 +23,27 @@ void freeGraph(DirectedGraph *graph) {
 
     graph->vertices = NULL;
 }
+
+bool isEmpty(const DirectedGraph* graph) {
+    if (graph == NULL) {
+        return true;
+    }
+
+    if (graph->vertices == NULL) {
+        return true;
+    }
+
+    return false;
+}
+
+size_t size(const DirectedGraph* graph) {
+    size_t count = 0;
+    Vertex* currentVertex = graph->vertices;
+
+    while (currentVertex != NULL) {
+        count++;
+        currentVertex = currentVertex->previous;
+    }
+
+    return count;
+}

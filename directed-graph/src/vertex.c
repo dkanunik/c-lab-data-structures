@@ -66,12 +66,12 @@ int *getVerticesData(DirectedGraph *graph) {
     return vertices;
 }
 
-Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int id) {
+Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int vertexId) {
     if (graph == NULL) {
         return NULL;
     }
 
-    Vertex *contextVertex = getVertex(graph, id);
+    Vertex const *contextVertex = getVertex(graph, vertexId);
 
     if (contextVertex == NULL) {
         return NULL;
@@ -94,6 +94,37 @@ Vertex* getVertexOutcomeNeighbors(DirectedGraph *graph, int id) {
     }
 
     return neighborsList;
+}
+
+Vertex* getVertexIncomeNeighbors(DirectedGraph *graph, int vertexId) {
+    if (graph == NULL) {
+        return NULL;
+    }
+
+    Vertex const *contextVertex = getVertex(graph, vertexId);
+
+    if (contextVertex == NULL) {
+        return NULL;
+    }
+
+    Vertex* incomingNeighbors = NULL;
+    Vertex* currentVertex = graph->vertices;
+
+    while (currentVertex != NULL) {
+        Edge* edge = currentVertex->edges;
+        while (edge != NULL) {
+            if (edge->toVertex->id == vertexId) {
+                Vertex* newNeighbor = createVertex(currentVertex->id);
+                newNeighbor->previous = incomingNeighbors;
+                incomingNeighbors = newNeighbor;
+                break;
+            }
+            edge = edge->next;
+        }
+        currentVertex = currentVertex->previous;
+    }
+
+    return incomingNeighbors;
 }
 
 Vertex *getVertex(DirectedGraph *graph, int id) {
