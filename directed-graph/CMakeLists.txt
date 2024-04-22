@@ -23,10 +23,4 @@ set(UNITY_SOURCE_FILES
         ${UNITY_LIBRARY_PATH}/unity.c
 )
 
-set(TEST_UTILS_PATH
-        ${TEST_UTILS_PATH}/data_utils.h
-        include/directedGraph.h
-        test/testDirectedGraph.c
-)
-
-add_executable(directed_graph ${SOURCE_FILES} ${UNITY_SOURCE_FILES} ${TEST_UTILS_PATH})
+add_executable(directed_graph ${SOURCE_FILES} ${UNITY_SOURCE_FILES})
