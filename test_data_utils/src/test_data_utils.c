@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-#include "data_utils.h"
+#include "test_data_utils.h"
 
 int LAST_NUMBER = 0;
 char NUM_SEPARATOR = ' ';
