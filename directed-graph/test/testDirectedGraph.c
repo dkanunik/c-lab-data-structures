@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "unity.h"
+#include "unity/unity.h"
 #include "directedGraph.h"
 
 void checkIfVertexExist(size_t expectedVertexCount, int removeVertexId);

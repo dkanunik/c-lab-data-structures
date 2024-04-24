@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "unity.h"
+#include "unity/unity.h"
 #include "binary_tree.h"
 
 BinaryTree* tree = NULL;

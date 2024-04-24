@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "heap.h"
-#include "unity.h"
+#include "unity/unity.h"
 
 Heap *heap = NULL;
 int MAX_DATA_SIZE = 100;

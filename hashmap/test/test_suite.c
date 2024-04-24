@@ -1,6 +1,6 @@
 #include <string.h>
 #include "hashmap.h"
-#include "unity.h"
+#include "unity/unity.h"
 
 HashMap *map = NULL;
 

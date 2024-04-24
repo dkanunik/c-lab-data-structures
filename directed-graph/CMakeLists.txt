@@ -5,22 +5,17 @@ project(directed_graph C)
 set(C_STANDARD 11)
 set(C_COMPILER_LAUNCHER "gcc")
 
+set(unity_LIBRARY_DIR /usr/local/lib)
+
 include_directories(include)
-
-set(UNITY_LIBRARY_PATH /usr/local/src/unity)
-set(TEST_UTILS_PATH ../_test_data_utils)
-
-include_directories(${UNITY_LIBRARY_PATH})
-include_directories(${TEST_UTILS_PATH})
 
 set(SOURCE_FILES
         src/directedGraph.c
         src/edge.c
         src/vertex.c
+        test/testDirectedGraph.c
 )
 
-set(UNITY_SOURCE_FILES
-        ${UNITY_LIBRARY_PATH}/unity.c
-)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-add_executable(directed_graph ${SOURCE_FILES} ${UNITY_SOURCE_FILES})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${TEST_DATA_UTILS} unity)
