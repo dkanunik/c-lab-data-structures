@@ -4,10 +4,6 @@
 #include <stdio.h>
 #include "test_data_utils.h"
 
-int LAST_NUMBER = 0;
-char NUM_SEPARATOR = ' ';
-int MAX_DATA_SIZE = 100;
-
 int generate_test_data(char *file_name, int count, int min, int max) {
     srand((unsigned int)time(NULL));
 
