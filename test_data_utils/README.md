@@ -2,6 +2,12 @@
 
 Plain handmade utils for test data generating (_in progress..._)
 
+### API:
+
+- generate a file with arbitrary numbers
+- return an array of numbers from generated file
+- verify the sorting of an array of numbers by ascending (_in progress..._)
+
 ### Installation:
 
 ```shell
@@ -16,5 +22,6 @@ test_data_utils.h -> /usr/local/include
 ### Usage:
 
 ```cmake
-target_link_libraries(${PROJECT_NAME} PUBLIC ${TEST_DATA_UTILS})
+set(test_data_utils_LIBRARY_DIR /usr/local/lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC test_data_utils)
 ```
