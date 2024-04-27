@@ -28,7 +28,7 @@ install:
 	@if [ -w $(TARGET_INCLUDE_DIR) ]; then \
 		sudo \cp -r $(INCLUDES)/*.h $(TARGET_INCLUDE_DIR); \
 		echo "Copy $(INCLUDES)/*.h to $(TARGET_INCLUDE_DIR)"; \
-		exit 0; > /dev/null 2>&1; \
+		exit 0; > /dev/null 2>&1 \
 	else \
 		echo "You do not have the necessary permissions to write to $(TARGET_INCLUDE_DIR)."; \
 		exit 2; \
